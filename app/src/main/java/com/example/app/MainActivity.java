@@ -25,14 +25,6 @@ public class MainActivity extends AppCompatActivity {
         Button buttonEntrar = findViewById(R.id.button);
         Button buttonCadastrar = findViewById(R.id.button2);
 
-        // Ação para o botão "ENTRAR"
-        buttonEntrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                validarLogin();
-            }
-        });
-
         // Ação para o botão "Ainda não tenho uma conta"
         buttonCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,21 +32,31 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, funcao.class);
                 startActivity(intent);
             }
+
+            {
+                buttonEntrar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(MainActivity.this, inspetor.class);
+                        startActivity(intent);
+                    }
+                });
+            }
+
+            // Método para validar os campos de login e senha
+            private void validarLogin() {
+                String login = loginEditText.getText().toString();
+                String senha = senhaEditText.getText().toString();
+
+                // Verifica se os campos estão vazios
+                if (login.isEmpty() || senha.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Se os campos estiverem preenchidos, navega para a tela 'funcao'
+                    Intent intent = new Intent(MainActivity.this, funcao.class);
+                    startActivity(intent);
+                }
+            }
         });
-    }
-
-    // Método para validar os campos de login e senha
-    private void validarLogin() {
-        String login = loginEditText.getText().toString();
-        String senha = senhaEditText.getText().toString();
-
-        // Verifica se os campos estão vazios
-        if (login.isEmpty() || senha.isEmpty()) {
-            Toast.makeText(MainActivity.this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
-        } else {
-            // Se os campos estiverem preenchidos, navega para a tela 'funcao'
-            Intent intent = new Intent(MainActivity.this, funcao.class);
-            startActivity(intent);
-        }
     }
 }
